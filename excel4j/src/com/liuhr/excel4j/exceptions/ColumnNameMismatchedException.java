@@ -3,22 +3,22 @@ package com.liuhr.excel4j.exceptions;
 public class ColumnNameMismatchedException extends BaseExcelException {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -5610228103533667249L;
 
 	/**
-	 * 
+	 *
 	 */
 	private String cellValue;
 
 	/**
-	 * 
+	 *
 	 */
 	private String columnName;
 
 	public ColumnNameMismatchedException(String sheetName, String location, String cellValue, String columnName) {
-		super(String.format("ÁĞÃû'%s'ÓëÄ¿±êÃû'%s'²»Æ¥Åä ", cellValue,columnName),sheetName,location);
+		super(String.format("åˆ—å'%s'ä¸ç›®æ ‡å'%s'ä¸åŒ¹é… ", cellValue,columnName),sheetName,location);
 		this.cellValue = cellValue;
 		this.columnName = columnName;
 	}

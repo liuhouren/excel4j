@@ -14,43 +14,43 @@ import com.liuhr.excel4j.enums.CellType;
 public class EnvObject extends Father implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -7163577873426720697L;
 
 	/**
-	 * Ö÷¼ü
+	 * ä¸»é”®
 	 */
 	@Excel(codes = { "11" }, columnIndex = 0)
 	private String id;
 
 	/**
-	 * ¶ÔÏó´´½¨Ê±¼ä
+	 * å¯¹è±¡åˆ›å»ºæ—¶é—´
 	 */
 
 	@Excel(codes = { "11" }, columnIndex = 1,cellType=CellType.NUMERIC)
 	private Date createTime = new Date();
 
 	/**
-	 * ÈËÔ±Ãû³Æ»ò³µÅÆºÅ
+	 * äººå‘˜åç§°æˆ–è½¦ç‰Œå·
 	 */
 	@Excel(codes = { "11" }, columnIndex = 2)
 	private String name;
 
 	/**
-	 * GPRSÖÕ¶ËºÅ
+	 * GPRSç»ˆç«¯å·
 	 */
-	@Excel(codes = { "11" }, columnIndex = 3,comments={"Ö»ÄÜÊäÈëÊı×Ö","×î¶àÊäÈëÊ®ÈıÎ»Êı×Ö"})
+	@Excel(codes = { "11" }, columnIndex = 3,comments={"åªèƒ½è¾“å…¥æ•°å­—","æœ€å¤šè¾“å…¥åä¸‰ä½æ•°å­—"})
 	private String gprsTerminalNum;
 
 	/**
-	 * ÊÖ»úºÅ
+	 * æ‰‹æœºå·
 	 */
-	@Excel(codes = { "11" }, columnIndex = 4,comments={"ÌîĞ´ÕıÈ·µÄÊÖ»úºÅ"})
+	@Excel(codes = { "11" }, columnIndex = 4,comments={"å¡«å†™æ­£ç¡®çš„æ‰‹æœºå·"})
 	private String mobile;
 
 	/**
-	 * ×´Ì¬
+	 * çŠ¶æ€
 	 */
 	@Excel(codes = { "11" }, columnIndex = 5)
 	private String state;

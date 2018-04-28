@@ -3,25 +3,25 @@ package com.liuhr.excel4j.exceptions;
 public class SheetIndexOutOfBoundsException extends Exception {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -5701835155846208714L;
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private int sheetIndex;
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private int numbers;
 
 	public SheetIndexOutOfBoundsException(int sheetIndex,int numbers) {
-        super(String.format("±íĞòºÅ³ö½ç(±íĞòºÅ:%s, ×Ü±íÊı:%s)", sheetIndex,numbers));
-        this.sheetIndex=sheetIndex;
-        this.numbers=numbers;
-    }
+		super(String.format("è¡¨åºå·å‡ºç•Œ(è¡¨åºå·:%s, æ€»è¡¨æ•°:%s)", sheetIndex,numbers));
+		this.sheetIndex=sheetIndex;
+		this.numbers=numbers;
+	}
 
 	public int getSheetIndex() {
 		return sheetIndex;
@@ -33,5 +33,5 @@ public class SheetIndexOutOfBoundsException extends Exception {
 
 
 
-    
+
 }

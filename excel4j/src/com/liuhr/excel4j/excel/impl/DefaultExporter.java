@@ -1,10 +1,7 @@
 package com.liuhr.excel4j.excel.impl;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 
 import com.liuhr.excel4j.processors.ExcelProcessor;
 
@@ -13,12 +10,24 @@ public class DefaultExporter extends AbstractExporter {
 	public DefaultExporter() {
 		super(new HSSFWorkbook());
 	}
-	
+
 	public DefaultExporter(Workbook workbook) {
 		super(workbook);
 	}
 
-	/* £¨·Ç Javadoc£©
+	/**
+	 * é‡å†™åˆ›å»ºè¡¨å¤´æ ·å¼ï¼ŒåŠ ç²—æ•ˆæœ
+	 * @param columnIndex
+	 * @param headerCellStyle
+	 * @param headerFont
+	 */
+	@Override
+	protected  void createdHeaderCellStyle(int columnIndex, CellStyle headerCellStyle, Font headerFont){
+		headerFont.setBold(true);
+		super.createdHeaderCellStyle(columnIndex,headerCellStyle,headerFont);
+	}
+
+	/* ï¼ˆé Javadocï¼‰
 	 * @see com.liuhr.excel4j.excel.impl.AbstractExporter#createdHeaderCell(org.apache.poi.ss.usermodel.Cell, com.liuhr.excel4j.processors.ExcelProcessor)
 	 */
 	@Override
@@ -26,7 +35,7 @@ public class DefaultExporter extends AbstractExporter {
 
 	}
 
-	/* £¨·Ç Javadoc£©
+	/* ï¼ˆé Javadocï¼‰
 	 * @see com.liuhr.excel4j.excel.impl.AbstractExporter#createdHeaderRow(org.apache.poi.ss.usermodel.Row)
 	 */
 	@Override
@@ -34,7 +43,7 @@ public class DefaultExporter extends AbstractExporter {
 
 	}
 
-	/* £¨·Ç Javadoc£©
+	/* ï¼ˆé Javadocï¼‰
 	 * @see com.liuhr.excel4j.excel.impl.AbstractExporter#createdContentCell(org.apache.poi.ss.usermodel.Cell, com.liuhr.excel4j.processors.ExcelProcessor)
 	 */
 	@Override
@@ -42,15 +51,15 @@ public class DefaultExporter extends AbstractExporter {
 
 	}
 
-	/* £¨·Ç Javadoc£©
+	/* ï¼ˆé Javadocï¼‰
 	 * @see com.liuhr.excel4j.excel.impl.AbstractExporter#createdContentRow(org.apache.poi.ss.usermodel.Row)
 	 */
 	@Override
 	protected void createdContentRow(Row contentRow) {
-		
+
 	}
 
-	/* £¨·Ç Javadoc£©
+	/* ï¼ˆé Javadocï¼‰
 	 * @see com.liuhr.excel4j.excel.impl.AbstractExporter#exportCompletedOf(org.apache.poi.ss.usermodel.Sheet)
 	 */
 	@Override
@@ -58,7 +67,7 @@ public class DefaultExporter extends AbstractExporter {
 
 	}
 
-	/* £¨·Ç Javadoc£©
+	/* ï¼ˆé Javadocï¼‰
 	 * @see com.liuhr.excel4j.excel.impl.AbstractExporter#exportCompleted(org.apache.poi.ss.usermodel.Workbook)
 	 */
 	@Override

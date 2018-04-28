@@ -94,14 +94,14 @@ public @interface Excel {
 	 * 
 	 * @return
 	 */
-	IndexedColors headerFontColor() default IndexedColors.RED;
+	IndexedColors headerFontColor() default IndexedColors.GREY_25_PERCENT;
 	
 	/**
 	 * this parameter use to export
 	 * 
 	 * @return
 	 */
-	IndexedColors headerFillForegroundColor() default IndexedColors.GREY_25_PERCENT;
+	IndexedColors headerFillForegroundColor() default IndexedColors.BLUE_GREY;
 	
 	/**
 	 * this parameter use to export

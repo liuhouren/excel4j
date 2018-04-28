@@ -21,10 +21,10 @@ import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 
 public class ExcelUtils {
-	
+
 	/**
 	 * the test row is empty
-	 * 
+	 *
 	 * @param row
 	 * @return
 	 */
@@ -42,7 +42,7 @@ public class ExcelUtils {
 		return true;
 	}
 
-	
+
 	/**
 	 * @param cell
 	 * @param comment
@@ -67,27 +67,28 @@ public class ExcelUtils {
 		_comment.setString(richTextString);
 		cell.setCellComment(_comment);
 	}
-	
+
 	/**
-	 * @param fontColor
+	 *
+	 * @param workbook
 	 * @param cellForegroundColor
 	 * @return
 	 */
 	public static CellStyle createCellStyle(Workbook workbook, IndexedColors cellForegroundColor){
 		CellStyle cellStyle = workbook.createCellStyle();
-		// ÷∏∂®µ•‘™∏Òæ”÷–∂‘∆Î
+		// ÊåáÂÆöÂçïÂÖÉÊ†ºÂ±Ö‰∏≠ÂØπÈΩê
 		cellStyle.setAlignment(CellStyle.ALIGN_CENTER);
-		// ÷∏∂®µ•‘™∏Ò¥π÷±æ”÷–∂‘∆Î
+		// ÊåáÂÆöÂçïÂÖÉÊ†ºÂûÇÁõ¥Â±Ö‰∏≠ÂØπÈΩê
 		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 		cellStyle.setBorderBottom((short) 1);
 		cellStyle.setBorderLeft((short) 1);
 		cellStyle.setBorderRight((short) 1);
-		cellStyle.setBorderTop((short) 1);	
+		cellStyle.setBorderTop((short) 1);
 		cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
 		cellStyle.setFillForegroundColor(cellForegroundColor.index);
 		return cellStyle;
 	}
-	
+
 	/**
 	 * @param workbook
 	 * @param fontColor
@@ -96,17 +97,17 @@ public class ExcelUtils {
 	public static Font createFont(Workbook workbook, IndexedColors fontColor){
 		Font font = workbook.createFont();
 		font.setColor(fontColor.index);
-		font.setFontName("ÀŒÃÂ");
+		font.setFontName("ÂÆã‰Ωì");
 		return font;
 	}
-	
+
 	/**
 	 * @param columnIndex
 	 * @param rowIndex
 	 * @return
 	 */
 	public static String getCellLocation(int columnIndex,int rowIndex){
-		 return CellReference.convertNumToColString(columnIndex)+""+(rowIndex+1);
+		return CellReference.convertNumToColString(columnIndex)+""+(rowIndex+1);
 	}
-	
+
 }

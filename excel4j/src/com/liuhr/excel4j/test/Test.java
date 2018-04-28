@@ -8,15 +8,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.liuhr.excel4j.excel.impl.*;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.liuhr.excel4j.assist.Optional;
-import com.liuhr.excel4j.excel.impl.AbstractExporter;
-import com.liuhr.excel4j.excel.impl.AbstractImporter;
-import com.liuhr.excel4j.excel.impl.DefaultExporter;
-import com.liuhr.excel4j.excel.impl.DefaultImporter;
 import com.liuhr.excel4j.exceptions.ColumnNameMismatchedException;
 import com.liuhr.excel4j.exceptions.InvocationTargetMethodException;
 import com.liuhr.excel4j.exceptions.SheetIndexOutOfBoundsException;
@@ -30,7 +27,7 @@ public class Test {
 	 * @throws FileNotFoundException
 	 */
 	public static void createExcelFile(Workbook workbook, String excelPath,
-			String excelName) throws FileNotFoundException {
+									   String excelName) throws FileNotFoundException {
 		if (workbook instanceof HSSFWorkbook) {
 			excelName += ".xls";
 		} else if (workbook instanceof XSSFWorkbook) {
@@ -93,7 +90,7 @@ public class Test {
 		list.add(envObject4);
 
 		AbstractExporter abstractExporter = new DefaultExporter(
-				new HSSFWorkbook());
+				new XSSFWorkbook());
 
 		/*
 		 * abstractExporter.setHeaderRowIndex(1);
@@ -116,16 +113,16 @@ public class Test {
 			workbook = abstractExporter.doExport(EnvObject.class, list, "11",
 					optional);
 		} catch (InvocationTargetMethodException e1) {
-			// TODO ◊‘∂Ø…˙≥… catch øÈ
+			// TODO Ëá™Âä®ÁîüÊàê catch Âùó
 			e1.printStackTrace();
 		}
 
-		String excelPath = "E:/≤‚ ‘";
+		String excelPath = "E:/ÊµãËØï";
 
 		try {
 			createExcelFile(workbook, excelPath, "template");
 		} catch (FileNotFoundException e) {
-			// TODO ◊‘∂Ø…˙≥… catch øÈ
+			// TODO Ëá™Âä®ÁîüÊàê catch Âùó
 			e.printStackTrace();
 		}
 	}
@@ -134,13 +131,13 @@ public class Test {
 		Optional optional = new Optional();
 		optional.add(4, "18720990000", "18720990000");
 		optional.add(3, "1234567890", "1234567890");
-		String excelPath = "E:/≤‚ ‘/template.xls";
+		String excelPath = "E:/ÊµãËØï/template.xlsx";
 
 		List<EnvObject> _list = null;
 
 		Workbook workbook;
 		try {
-			workbook = new HSSFWorkbook(new FileInputStream(excelPath));
+			workbook = new XSSFWorkbook(new FileInputStream(excelPath));
 			AbstractImporter abstractImporter = new DefaultImporter(workbook);
 
 			_list = abstractImporter.doImport(EnvObject.class, "11", optional);
@@ -151,17 +148,18 @@ public class Test {
 				| ValidationNotThroughException
 				| InvocationTargetMethodException
 				| SheetIndexOutOfBoundsException e) {
-			// TODO ◊‘∂Ø…˙≥… catch øÈ
+			// TODO Ëá™Âä®ÁîüÊàê catch Âùó
 			e.printStackTrace();
 		}
 
-		
+
 	}
-	
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		testExport();
 		testImport();
 	}
 

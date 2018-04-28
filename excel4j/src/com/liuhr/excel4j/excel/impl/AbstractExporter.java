@@ -21,42 +21,42 @@ import com.liuhr.excel4j.util.ExcelUtils;
 
 /**
  * abstract exporter
- * 
+ *
  * @author nc-wl001
- *	
+ *
  */
 public abstract class AbstractExporter implements IExporter {
 
 	// the default maxRowNum
 	private static final int MAX_ROW_NUM = 50000;
-	
+
 	// the default headerRowIndex
 	private static final int HEADER_ROW_INDEX = 0;
-	
+
 	//
 	private static final short HEADER_ROW_HEIGHT=0;
-	
+
 	//
 	private static final short CONTENT_ROW_HEIGHT=0;
-	
+
 	//
 	private final Workbook workbook;
-	
+
 	//
 	private int maxRowNum = MAX_ROW_NUM;
-	
+
 	//
 	private int headerRowIndex = HEADER_ROW_INDEX;
-	
+
 	//
 	private short headerRowHeight = HEADER_ROW_HEIGHT;
-	
+
 	//
 	private short contentRowHeight = CONTENT_ROW_HEIGHT;
-	
+
 	//
 	private Hashtable<Short,CellStyle> cellStyles;
-	
+
 	public AbstractExporter(Workbook workbook) {
 		// init workbook
 		this.workbook = workbook;
@@ -64,7 +64,7 @@ public abstract class AbstractExporter implements IExporter {
 
 	/**
 	 * set maxRowNum
-	 * 
+	 *
 	 * @param maxRowNum
 	 */
 	public final void setMaxRowNum(int maxRowNum) {
@@ -72,10 +72,10 @@ public abstract class AbstractExporter implements IExporter {
 			this.maxRowNum = maxRowNum;
 		}
 	}
-	
+
 	/**
 	 * set headerRow index
-	 * 
+	 *
 	 * @param headerRowIndex
 	 */
 	public final void setHeaderRowIndex(int headerRowIndex) {
@@ -101,21 +101,21 @@ public abstract class AbstractExporter implements IExporter {
 			this.contentRowHeight = contentRowHeight;
 		}
 	}
-	
+
 	/**
 	 * @return
 	 */
 	protected int getMaxRowNum(){
 		return this.maxRowNum;
 	}
-		
+
 	/**
 	 * @return
 	 */
 	protected int getHeaderRowIndex() {
 		return this.headerRowIndex;
 	}
-	
+
 	/**
 	 * @return
 	 */
@@ -130,16 +130,16 @@ public abstract class AbstractExporter implements IExporter {
 		return contentRowHeight;
 	}
 
-	/* £®∑« Javadoc£©
+	/* ÔºàÈùû JavadocÔºâ
 	 * @see com.liuhr.excel4j.Exporter#doExport(java.lang.Class, java.util.List, java.lang.String)
 	 */
 	@Override
 	public final <T> Workbook doExport(Class<T> entityClass,List<T> entities, String code,Optional optional) throws InvocationTargetMethodException{
 
-		// get Excel Annotation°¢
+		// get Excel Annotation„ÄÅ
 		List<ExcelProcessor> excelProcessors = ExcelProcessor.getExcelProcessors(entityClass, code);
 		//createCellStyles
-		this.createCellStyles(excelProcessors);	
+		this.createCellStyles(excelProcessors);
 		//
 		if(null==entities){
 			entities=new ArrayList<T>();
@@ -176,7 +176,7 @@ public abstract class AbstractExporter implements IExporter {
 		return this.workbook;
 
 	}
-	
+
 	/**
 	 * @param excelProcessors
 	 */
@@ -184,29 +184,29 @@ public abstract class AbstractExporter implements IExporter {
 		this.cellStyles=new Hashtable<Short, CellStyle>();
 		for (ExcelProcessor excelProcessor : excelProcessors) {
 			Short key=(short) (2*excelProcessor.columnIndex());
-			
+
 			Font headerFont=ExcelUtils.createFont(this.workbook, excelProcessor.headerFontColor());
 			CellStyle headerCellStyle=ExcelUtils.createCellStyle(this.workbook, excelProcessor.headerFillForegroundColor());
 			this.createdHeaderCellStyle(excelProcessor.columnIndex(),headerCellStyle,headerFont);
 			this.cellStyles.put(key, headerCellStyle);
-			
+
 			Font contentFont=ExcelUtils.createFont(this.workbook, excelProcessor.contentFontColor());
 			CellStyle contentCellStyle=ExcelUtils.createCellStyle(this.workbook, excelProcessor.contentFillForegroundColor());
 			contentCellStyle.setDataFormat(this.workbook.createDataFormat().getFormat(excelProcessor.dataFormat()));
 			this.createdContentCellStyle(excelProcessor.columnIndex(),contentCellStyle,contentFont);
 			this.cellStyles.put((short) (key+1), contentCellStyle);
-			
+
 		}
 	}
-	
+
 	/**
 	 * create header row and return sheet
-	 * 
+	 *
 	 * @param sheet
 	 * @param excelProcessors
 	 */
 	private void createHeaderRow(Sheet sheet,List<ExcelProcessor> excelProcessors) {
-		
+
 		// create header row
 		Row headerRow = sheet.createRow(headerRowIndex);
 		// foreach all ExcelProcessor
@@ -220,12 +220,12 @@ public abstract class AbstractExporter implements IExporter {
 		}
 		// created header row
 		createdHeaderRow(headerRow);
-		
+
 	}
 
 	/**
 	 * createHeaderCell
-	 * 
+	 *
 	 * @param headerRow
 	 * @param excelProcessor
 	 */
@@ -241,20 +241,19 @@ public abstract class AbstractExporter implements IExporter {
 		// createdHeaderCell
 		createdHeaderCell(cell, excelProcessor);
 	}
-	
+
 
 	/**
 	 * @param sheet
 	 * @param excelProcessors
-	 * @param list
-	 * @throws InvocationTargetMethodException 
-	 * @throws MethodInvokeException 
+	 * @param entities
+	 * @throws InvocationTargetMethodException
 	 */
 	private void createContentRow(Sheet sheet, List<ExcelProcessor> excelProcessors,List<?> entities) throws InvocationTargetMethodException{
 		int rowIndex = headerRowIndex + 1;
 		// foreach the list to setting content
 		for (Object entity : entities) {
-			
+
 			// check null
 			if (null == entity) {
 				continue;
@@ -285,9 +284,8 @@ public abstract class AbstractExporter implements IExporter {
 	/**
 	 * @param contentRow
 	 * @param excelProcessor
-	 * @param t
-	 * @throws InvocationTargetException 
-	 * @throws MethodInvokeException 
+	 * @param entity
+	 * @throws InvocationTargetException
 	 */
 	private void createContentCell(Row contentRow, ExcelProcessor excelProcessor,Object entity) throws InvocationTargetException{
 
@@ -303,7 +301,7 @@ public abstract class AbstractExporter implements IExporter {
 		excelProcessor.setCellValue(cell, value);
 		//createdContentCell
 		createdContentCell(cell, excelProcessor);
-		
+
 	}
 
 	/**
@@ -321,45 +319,45 @@ public abstract class AbstractExporter implements IExporter {
 	protected void createdContentCellStyle(int columnIndex,CellStyle contentCellStyle,Font contentFont) {
 		contentCellStyle.setFont(contentFont);
 	}
-	
+
 	/**
 	 * execute this function when this header Cell is created
-	 * 
+	 *
 	 * @param cell
 	 */
 	protected abstract void createdHeaderCell(Cell cell,ExcelProcessor excelProcessor);
 
 	/**
 	 * execute this function when the createHeaderRow function is executed
-	 * 
+	 *
 	 * @param headerRow
 	 */
 	protected abstract void createdHeaderRow(Row headerRow);
-	
+
 	/**
 	 * execute this function when this content Cell is created
-	 * 
+	 *
 	 * @param cell
 	 */
 	protected abstract void createdContentCell(Cell cell,ExcelProcessor excelProcessor);
 
 	/**
 	 * execute this function when the createContentRow function is executed
-	 * 
+	 *
 	 * @param contentRow
 	 */
 	protected abstract void createdContentRow(Row contentRow);
 
 	/**
 	 * execute this function when this sheet completed export
-	 * 
+	 *
 	 * @param sheet
 	 */
 	protected abstract void exportCompletedOf(Sheet sheet);
 
 	/**
 	 * execute this function when the export function is executed
-	 * 
+	 *
 	 * @param workbook
 	 */
 	protected abstract void exportCompleted(Workbook workbook);

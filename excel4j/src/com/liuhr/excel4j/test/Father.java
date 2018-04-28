@@ -4,18 +4,18 @@ import com.liuhr.excel4j.annotations.Excel;
 
 public class Father {
 
-	@Excel(codes = { "11" ,"22"}, columnIndex = 6,columnName="±‡¬Î")
+	@Excel(codes = { "11" ,"22"}, columnIndex = 6,columnName="ÁºñÁ†Å")
 	private String code;
 
-	@Excel(codes = { "11" ,"22"}, columnIndex = 7,columnName=" ˝¡ø")
+	@Excel(codes = { "11" ,"22"}, columnIndex = 7,columnName="Êï∞Èáè")
 	private int count;
-	
-	@Excel(codes = { "11" ,"22"}, columnIndex = 8,columnName="“—…æ≥˝")
+
+	@Excel(codes = { "11" ,"22"}, columnIndex = 8,columnName="Â∑≤Âà†Èô§")
 	private boolean deleted;
-	
+
 	@Excel(codes = { "11" ,"22"}, columnIndex = 9,readMethodName="getFatherCode",writeMethodName="setFatherCode",writeMethodParameterType=String.class)
 	private Father father;
-	
+
 	public boolean isDeleted() {
 		return deleted;
 	}
@@ -31,7 +31,7 @@ public class Father {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	
+
 	public int getCount() {
 		return count;
 	}
@@ -51,10 +51,10 @@ public class Father {
 	public String getFatherCode(){
 		return this.father==null?"":this.father.code;
 	}
-	
+
 	public void setFatherCode(String fatherCode){
 		this.father=new Father();
 		this.father.setCode(fatherCode);
 	}
-	
+
 }

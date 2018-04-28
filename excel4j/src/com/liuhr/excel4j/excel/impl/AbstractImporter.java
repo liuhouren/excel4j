@@ -26,20 +26,20 @@ public abstract class AbstractImporter implements Importer {
 
 	// the default headerRowIndex
 	private static final int HEADER_ROW_INDEX = 0;
-	
+
 	// headerRowIndex
 	private int headerRowIndex = HEADER_ROW_INDEX;
-	
+
 	// workbook
 	private final Workbook workbook;
-	
+
 	public AbstractImporter(Workbook workbook){
 		this.workbook=workbook;
 	}
-	
+
 	/**
 	 * set headerRow index
-	 * 
+	 *
 	 * @param headerRowIndex
 	 */
 	public final void setHeaderRowIndex(int headerRowIndex) {
@@ -47,9 +47,9 @@ public abstract class AbstractImporter implements Importer {
 			this.headerRowIndex = headerRowIndex;
 		}
 	}
-	
 
-	/* £¨·Ç Javadoc£©
+
+	/* ï¼ˆé Javadocï¼‰
 	 * @see com.liuhr.excel4j.excel.Importer#doImport(java.lang.Class, int, java.lang.String, com.liuhr.excel4j.assist.Optional[])
 	 */
 	@Override
@@ -59,8 +59,8 @@ public abstract class AbstractImporter implements Importer {
 		int endIndex=this.workbook.getNumberOfSheets();
 		if(sheetIndex>=endIndex){
 			throw new SheetIndexOutOfBoundsException(sheetIndex,endIndex);
-		}	
-		// get Excel Annotation¡¢
+		}
+		// get Excel Annotationã€
 		List<ExcelProcessor> excelProcessors = ExcelProcessor.getExcelProcessors(entityClass, code);
 		//set sheetIndex and endIndex
 		if(sheetIndex<0){
@@ -88,7 +88,7 @@ public abstract class AbstractImporter implements Importer {
 				if (ExcelUtils.isEmptyRow(rowbody)||rowIndex<=this.headerRowIndex) {
 					continue;
 				}
-				
+
 				//new instance
 				T entity = null;
 				try {
@@ -100,16 +100,16 @@ public abstract class AbstractImporter implements Importer {
 				for (ExcelProcessor excelProcessor : excelProcessors) {
 					//get cell
 					Cell cell=rowbody.getCell(excelProcessor.columnIndex());
-					
+
 					//get cell value
-					Object cellValue=excelProcessor.getCellValue(cell);	
+					Object cellValue=excelProcessor.getCellValue(cell);
 					//before setter validate
 					String errorMsg=beforeSetterValidate(cellValue,excelProcessor,optional);
 					if(!StringUtils.isEmpty(errorMsg)){//error
 						//throw exception
 						throw new ValidationNotThroughException(errorMsg,sheet.getSheetName(),ExcelUtils.getCellLocation(excelProcessor.columnIndex(),rowIndex));
 					}
-					
+
 					//set value
 					try {
 						excelProcessor.applySetter(entity, cellValue);
@@ -123,15 +123,15 @@ public abstract class AbstractImporter implements Importer {
 						//throw exception
 						throw new ValidationNotThroughException(errorMsg,sheet.getSheetName(),ExcelUtils.getCellLocation(excelProcessor.columnIndex(),rowIndex));
 					}
-					
+
 				}
 				//
-				result.add(entity);				
+				result.add(entity);
 			}
 			//
-			sheetIndex++;			
+			sheetIndex++;
 		}
-		
+
 		return result;
 	}
 
@@ -140,7 +140,7 @@ public abstract class AbstractImporter implements Importer {
 		if(null==opt){
 			return "";
 		}
-		return opt.contains(cellValue)?"":String.format("³öÏÖÒâÍâµÄÖµ(%s)",cellValue);
+		return opt.contains(cellValue)?"":String.format("å‡ºç°æ„å¤–çš„å€¼(%s)",cellValue);
 	}
 
 	protected String afterSetterValidate(Object entity,ExcelProcessor excelProcessor,Class<?>...validateGroups) {
@@ -150,14 +150,14 @@ public abstract class AbstractImporter implements Importer {
 		return "";
 	}
 
-	/* £¨·Ç Javadoc£©
+	/* ï¼ˆé Javadocï¼‰
 	 * @see com.liuhr.excel4j.excel.Importer#doImport(java.lang.Class, java.lang.String, com.liuhr.excel4j.assist.Optional[])
 	 */
 	@Override
 	public final <T> List<T> doImport(Class<T> entityClass, String code,Optional optional,Class<?>...validateGroups) throws ColumnNameMismatchedException, ValidationNotThroughException, SheetIndexOutOfBoundsException, InvocationTargetMethodException{
 		return this.doImport(entityClass, -1, code, optional,validateGroups);
 	}
-	
+
 	/**
 	 * @param sheet
 	 * @param excelProcessors
@@ -169,12 +169,12 @@ public abstract class AbstractImporter implements Importer {
 			Cell cell=headerRow.getCell(excelProcessor.columnIndex());
 			String cellValue=cell==null?"":cell.getStringCellValue();
 			if(!excelProcessor.columnName().equals(cellValue)){
-				//ÁĞÃûcellValueÓëÄ¿±êÃû³ÆcolumnName²»Æ¥Åä  (±íÃû³Æ:,µ¥Ôª¸ñ:A1)				
+				//åˆ—åcellValueä¸ç›®æ ‡åç§°columnNameä¸åŒ¹é…  (è¡¨åç§°:,å•å…ƒæ ¼:A1)
 				throw new ColumnNameMismatchedException(sheet.getSheetName(), ExcelUtils.getCellLocation(excelProcessor.columnIndex(),this.headerRowIndex),cellValue,excelProcessor.columnName());
 			}
 		}
 	}
-	
+
 	/**
 	 * @param entity
 	 * @param propertyName
@@ -183,5 +183,5 @@ public abstract class AbstractImporter implements Importer {
 	 */
 	protected abstract String validate(Object entity, String propertyName, Class<?>...validateGroups);
 
-	
+
 }

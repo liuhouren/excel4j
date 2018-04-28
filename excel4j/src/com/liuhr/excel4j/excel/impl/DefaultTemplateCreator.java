@@ -17,33 +17,33 @@ import com.liuhr.excel4j.util.StringUtils;
 
 /**
  * default template creator
- * 
+ *
  * @author nc-wl001
  *
  */
 public class DefaultTemplateCreator extends AbstractExporter {
-	
-	private final static String PROMPT_MESSAGE="Çë°´ÕÕ´ËÊ¾ÀıÌîĞ´£¬ÌîĞ´Íê±Ï£¬ÇëÉ¾³ıÊ¾Àı¼°¸ÃĞĞµ¥Ôª¸ñ!";
+
+	private final static String PROMPT_MESSAGE="è¯·æŒ‰ç…§æ­¤ç¤ºä¾‹å¡«å†™ï¼Œå¡«å†™å®Œæ¯•ï¼Œè¯·åˆ é™¤ç¤ºä¾‹åŠè¯¥è¡Œå•å…ƒæ ¼!";
 
 	public DefaultTemplateCreator() {
 		super(new HSSFWorkbook());
 	}
-	
+
 	public DefaultTemplateCreator(Workbook workbook) {
 		super(workbook);
 	}
-	
-	/* £¨·Ç Javadoc£©
+
+	/* ï¼ˆé Javadocï¼‰
 	 * @see com.liuhr.excel4j.excel.impl.DefaultExporter#createdHeaderCell(org.apache.poi.ss.usermodel.Cell, com.liuhr.excel4j.processors.ExcelProcessor)
 	 */
 	@Override
-	protected void createdHeaderCell(Cell cell,ExcelProcessor excelProcessor) {		
+	protected void createdHeaderCell(Cell cell,ExcelProcessor excelProcessor) {
 		ExcelUtils.setCellComment(cell, StringUtils.merge(excelProcessor.comments()));
 	}
 
-	/* £¨·Ç Javadoc£©
+	/* ï¼ˆé Javadocï¼‰
 	 * 	set prompt
-	 * 
+	 *
 	 * @see com.liuhr.excel4j.excel.impl.AbstractExporter#exportCompletedOf(org.apache.poi.ss.usermodel.Sheet)
 	 */
 	@Override
@@ -51,13 +51,13 @@ public class DefaultTemplateCreator extends AbstractExporter {
 
 		int headerRowIndex=this.getHeaderRowIndex();
 		int lastRowNum=sheet.getLastRowNum();
-		
+
 		CellRangeAddress address = new CellRangeAddress(lastRowNum+1, lastRowNum + 3, 0,sheet.getRow(headerRowIndex).getLastCellNum()-1);
 		sheet.addMergedRegion(address);
 
-		Row promptRow = sheet.createRow(lastRowNum+1);		
+		Row promptRow = sheet.createRow(lastRowNum+1);
 		Cell promptCell = promptRow.createCell(0);
-		promptCell.setCellType(Cell.CELL_TYPE_STRING);		
+		promptCell.setCellType(Cell.CELL_TYPE_STRING);
 		promptCell.setCellValue(PROMPT_MESSAGE);
 		Workbook workbook=sheet.getWorkbook();
 		CellStyle cellStyle=ExcelUtils.createCellStyle(workbook,IndexedColors.GREY_25_PERCENT);
@@ -68,31 +68,31 @@ public class DefaultTemplateCreator extends AbstractExporter {
 
 	}
 
-	/* £¨·Ç Javadoc£©
+	/* ï¼ˆé Javadocï¼‰
 	 * @see com.liuhr.excel4j.excel.impl.AbstractExporter#createdHeaderRow(org.apache.poi.ss.usermodel.Row)
 	 */
 	@Override
 	protected void createdHeaderRow(Row headerRow) {
-		
+
 	}
 
-	/* £¨·Ç Javadoc£©
+	/* ï¼ˆé Javadocï¼‰
 	 * @see com.liuhr.excel4j.excel.impl.AbstractExporter#createdContentCell(org.apache.poi.ss.usermodel.Cell, com.liuhr.excel4j.processors.ExcelProcessor)
 	 */
 	@Override
 	protected void createdContentCell(Cell cell, ExcelProcessor excelProcessor) {
-		
+
 	}
 
-	/* £¨·Ç Javadoc£©
+	/* ï¼ˆé Javadocï¼‰
 	 * @see com.liuhr.excel4j.excel.impl.AbstractExporter#createdContentRow(org.apache.poi.ss.usermodel.Row)
 	 */
 	@Override
 	protected void createdContentRow(Row contentRow) {
-		
+
 	}
 
-	/* £¨·Ç Javadoc£©
+	/* ï¼ˆé Javadocï¼‰
 	 * @see com.liuhr.excel4j.excel.impl.AbstractExporter#exportCompleted(org.apache.poi.ss.usermodel.Workbook)
 	 */
 	@Override
